@@ -92,6 +92,7 @@ grafico_data <- data.frame(table(format(as.Date(reclamacao$DataArquivamento),
                                         '%Y-%m'))) %>% rename(Data = Var1, Qtd=Freq)%>%
                 ggplot(aes(Data, Qtd)) +
                   geom_line(group = 1) +
+                  theme(axis.text.x = element_text(angle = 45))
                   theme_bw() + 
                   ggtitle('Quantidade de Reclamações por Ano-Mês')
 
@@ -121,5 +122,4 @@ grafico_atendida_ano <- ggplotly(grafico_atendida_ano)
 
 grafico_atendida_ano
 
-#### 3. Criando app web com R ####
 

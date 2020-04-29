@@ -8,23 +8,25 @@ library(shiny)
 #runExample('02_text')
 
 ## front-end (tela que será mostrada para o usuário)
-app <- shinyApp(
-  ui = fluidPage(
-        titlePanel("Hello Shiny!"),
-        
-        verbatimTextOutput("summary"),
+ui = fluidPage(
+      ## título da página
+      titlePanel("Hello Shiny!"),
       
-      ),
-
-
-    ## back-end (o que o sistema irá executar para retornar para o usuário, front-end)
-    server = function(input, output, session) {
-      output$summary <- renderPrint({
-        seq(1:100)
-      })
-    }
+      ## impressão dos dados gerados no 'server'
+      verbatimTextOutput("listaNumeros")
 )
 
-#shinyApp(ui, server)
+## back-end (o que o sistema irá executar para retornar para o usuário, front-end)
+server = function(input, output, session) {
+  
+  ## geração de uma lista de números que serão impressos na tela do usuário
+  output$listaNumeros <- renderPrint({
+    seq(1:100)
+  })
+}
 
-runApp(app)
+
+shinyApp(ui, server)
+
+#runApp(app)
+
