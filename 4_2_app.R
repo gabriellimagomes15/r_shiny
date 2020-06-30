@@ -13,27 +13,30 @@ dados <- fread('dados_limpos.csv')
 ui = fluidPage(
   ## título da página
   titlePanel("Dashboard PROCON"),
-  
-  mainPanel(
-    ## gráfico de linhas
-    plotlyOutput(outputId = 'data',width = '100%'),
-    ## texto descritivo do gráfico de linhas
-    textOutput(outputId = "descData"),
+  sidebarLayout(
+    sidebarPanel(),
     
-    ## gráfico
-    plotlyOutput(outputId = 'uf'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descUf"),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendida'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descAtendida"),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendidaAno'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descAtendidaAno")
+    mainPanel(
+      ## gráfico de linhas
+      plotlyOutput(outputId = 'data',width = '100%'),
+      ## texto descritivo do gráfico de linhas
+      textOutput(outputId = "descData"),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'uf'),
+      ## texto descritivo do gráfico
+      textOutput(outputId = "descUf"),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendida'),
+      ## texto descritivo do gráfico
+      #textOutput(outputId = "descAtendida"),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendidaAno'),
+      ## texto descritivo do gráfico
+      #textOutput(outputId = "descAtendidaAno")
+    )
   )
   
 )
@@ -114,10 +117,7 @@ server = function(input, output, session) {
     paste("Gráfico com a quantidade de reclamações feitas por UF: ",estados)
     
   })
-  output$descAtendida    <- renderText({"Gráfico com a quantidade de reclamações atendidas e não atendidas"})
-  
-  output$descAtendidaAno <- renderText({"Gráfico com a quantidade de reclamações atendidas e não atendidas por Ano"})
-  
+
 }
 
 

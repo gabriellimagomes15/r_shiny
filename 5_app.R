@@ -15,49 +15,48 @@ dados <- fread('dados_limpos.csv',encoding = 'UTF-8')
 ui = fluidPage(
   ## título da página
   titlePanel("Dashboard PROCON"),
-  
-  mainPanel(
-    ## caixa de seleção 
-    checkboxGroupInput(inputId = "select_UF",label =  "Estado:",
-                       choices = c('TODOS',unique(dados$UF)),selected = 'TODOS'),
-    
-    ## calendário para selecionar perído
-    dateRangeInput(inputId = "data_abertura",label =  "Data Abertura:",
-                   start = min(as.Date(dados$DataAbertura)),#"2001-01-01",
-                   end   = max(as.Date(dados$DataAbertura))), #"2010-12-31"),
-    
-    ## seleção de descriçãoo de assunto
-    selectizeInput(inputId = "assunto",label =  "Descrição Assunto:",
-                   choices = c('TODOS', unique(dados$DescricaoAssunto)),
-                   selected = 'TODOS',multiple = T,options = list(maxItems = 5)),
-    
-    ## seleção de ano (SABER MAIS)
-    #sliderInput("unifRange", "Range",
-    #           min = as.numeric(min(dados$anocalendario)), 
-    #          max = as.numeric(max(dados$anocalendario)), 
-    #         value = c(as.numeric(min(dados$anocalendario)), 
-    #                  as.numeric(max(dados$anocalendario))),sep = ''),
-    
-    ## gráfico de linhas
-    plotlyOutput(outputId = 'data',width = '100%'),
-    
-    ## texto descritivo do gráfico de linhas
-    textOutput(outputId = "descData"),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'uf'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descUf"),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendida'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descAtendida"),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendidaAno'),
-    ## texto descritivo do gráfico
-    textOutput(outputId = "descAtendidaAno"),
+  sidebarLayout(
+    sidebarPanel(
+      ## caixa de seleção 
+      checkboxGroupInput(inputId = "select_UF",label =  "Estado:",
+                         choices = c('TODOS',unique(dados$UF)),selected = 'TODOS'),
+      
+      ## calendário para selecionar perído
+      dateRangeInput(inputId = "data_abertura",label =  "Data Abertura:",
+                     start = min(as.Date(dados$DataAbertura)),#"2001-01-01",
+                     end   = max(as.Date(dados$DataAbertura))), #"2010-12-31"),
+      
+      ## seleção de descriçãoo de assunto
+      selectizeInput(inputId = "assunto",label =  "Descrição Assunto:",
+                     choices = c('TODOS', unique(dados$DescricaoAssunto)),
+                     selected = 'TODOS',multiple = T,options = list(maxItems = 5)),
+      
+      ## seleção de ano (SABER MAIS)
+      #sliderInput("unifRange", "Range",
+      #           min = as.numeric(min(dados$anocalendario)), 
+      #          max = as.numeric(max(dados$anocalendario)), 
+      #         value = c(as.numeric(min(dados$anocalendario)), 
+      #                  as.numeric(max(dados$anocalendario))),sep = ''),
+    ),
+    mainPanel(
+      ## gráfico de linhas
+      plotlyOutput(outputId = 'data',width = '100%'),
+      
+      ## texto descritivo do gráfico de linhas
+      textOutput(outputId = "descData"),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'uf'),
+      ## texto descritivo do gráfico
+      textOutput(outputId = "descUf"),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendida'),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendidaAno'),
+      
+    )
   )
 )
 

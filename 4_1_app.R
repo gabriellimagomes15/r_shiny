@@ -13,21 +13,25 @@ dados <- fread('dados_limpos.csv')
 ui = fluidPage(
   ## título da página
   titlePanel("Dashboard PROCON"),
-  
-  mainPanel(
-    ## gráfico de linhas
-    plotlyOutput(outputId = 'data',width = '100%'),
+  sidebarLayout(
+    sidebarPanel(),
     
-    ## gráfico
-    plotlyOutput(outputId = 'uf'),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendida'),
-    
-    ## gráfico
-    plotlyOutput(outputId = 'atendidaAno'),
-    
-  )## fim mainPanel
+    # Show a plot of the generated distribution
+    mainPanel(
+      ## gráfico de linhas
+      plotlyOutput(outputId = 'data'),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'uf'),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendida'),
+      
+      ## gráfico
+      plotlyOutput(outputId = 'atendidaAno'),
+    )
+  )
+
 )
 
 ## back-end (o que o sistema irá executar para retornar para o usuário, front-end)
@@ -59,7 +63,6 @@ server = function(input, output, session) {
   
   ## gráfico UF
   output$uf   <- renderPlotly({ 
-    
     data.frame(table(dados_selecionados()$UF)) %>% 
         rename(UF = Var1,Qtd = Freq) %>%
       ggplot(aes(x = reorder(UF,Qtd),y = Qtd,
